@@ -3,6 +3,7 @@ using System;
 using System.Data.SqlClient;
 using System.Web.UI.WebControls;
 using System.Configuration;
+using FloraSoft.Cps.UserMgr.DAC;
 
 namespace FloraSoft.Cps.UserManager
 {
@@ -50,7 +51,7 @@ namespace FloraSoft.Cps.UserManager
 
                 txtEmail.Enabled = false;
                 txtcontact.Enabled      = false;
-                txtdepartment.Enabled   = false;
+                ddlDepartment.Enabled   = false;
                 txtloginid.Enabled      = false;
                 txtname.Enabled         = false;
 
@@ -76,6 +77,8 @@ namespace FloraSoft.Cps.UserManager
                 txtcontact.Text = dr["ContactNo"].ToString();
                 string BranchId = dr["BranchID"].ToString();
                 ddlbranch.SelectedValue = BranchId;
+                BindDepartmentList();
+                ddlDepartment.SelectedValue = dr["DeptID"].ToString();
                 BindSubBranchList(dr["RoutingNo"].ToString());
                 ddlSubBranch.SelectedValue = dr["SubBranchCD"].ToString();
                 chkAllBranch.Checked = (bool)dr["AllBranch"];
@@ -83,6 +86,14 @@ namespace FloraSoft.Cps.UserManager
             dr.Close();
             dr.Dispose();
         }
+
+        private void BindDepartmentList()
+        {
+            DepartmentDB db1 = new DepartmentDB();
+            ddlDepartment.DataSource = db1.GetDepartment();
+            ddlDepartment.DataBind();
+        }
+
         private void SetZones()
         {
             ZonesDB zone = new ZonesDB();

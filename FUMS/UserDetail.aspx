@@ -78,7 +78,8 @@ td.ddl:before {
                             Department:
                         </td>
                         <td>
-                            <asp:TextBox ID="txtdepartment" CssClass="inputlt" runat="server"></asp:TextBox>
+                            <asp:DropDownList ID="ddlDepartment" runat="server" Width="195px" DataTextField="DeptName"
+                                CssClass="Normal" DataValueField="DeptID" />
                         </td>
                     </tr>
                     <tr>

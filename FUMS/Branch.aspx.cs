@@ -31,6 +31,8 @@ namespace FloraSoft.Cps.UserMgr
             {
                 BindData();
                 BindZone();
+                if (Request.Cookies["RoleCD"].Value == "UMMC")
+                    MyDataGrid.ShowFooter = false;
             }
         }
         protected void Page_PreRender(object sender,EventArgs e)
@@ -70,7 +72,7 @@ namespace FloraSoft.Cps.UserMgr
                     MyDataGrid.Items[MyDataGrid.EditItemIndex].Cells[2].Enabled = false;
                     MyDataGrid.Items[MyDataGrid.EditItemIndex].Cells[3].Enabled = false;
                     MyDataGrid.Items[MyDataGrid.EditItemIndex].Cells[4].Enabled = false;
-                    MyDataGrid.Items[MyDataGrid.EditItemIndex].Cells[5].Enabled = false;
+                    //MyDataGrid.Items[MyDataGrid.EditItemIndex].Cells[5].Enabled = false;
 
                     CheckBox ChkApproved = (CheckBox)MyDataGrid.Items[MyDataGrid.EditItemIndex].FindControl("ChkApproved");
                     if (ChkApproved != null && ChkApproved.Checked == true)
@@ -84,12 +86,18 @@ namespace FloraSoft.Cps.UserMgr
                 }
                 else
                 {
-                    //MyDataGrid.Items[MyDataGrid.EditItemIndex].Cells[6].Visible = false;
+                    MyDataGrid.Items[MyDataGrid.EditItemIndex].Cells[5].Enabled = false;
 
                 }
             }
             if (e.CommandName == "Insert")
             {
+                if (Request.Cookies["RoleCD"].Value != "UMMK")
+                {
+                    lblErrMsg.Text = "Branch insertion not permitted for Checker";
+                    lblErrMsg.ForeColor = System.Drawing.Color.Red;
+                    return;
+                }
                 lblErrMsg.ForeColor = System.Drawing.Color.Red;
 
                 TextBox txtBranchName = (TextBox)e.Item.FindControl("addBranchName");

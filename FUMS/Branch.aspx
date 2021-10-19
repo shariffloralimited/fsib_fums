@@ -12,6 +12,7 @@
     <div class="row">
         <div class="col-md-12">
             <div>
+                <p align="center" class="Head"><asp:Label ID="lblErrMsg" runat="server"></asp:Label></p>
                 <h2 align="center">Branch Listings</h2>
             </div>
                  <div>
@@ -115,8 +116,6 @@
                             
                             <HeaderStyle BackColor="#CF171F" Font-Bold="True" ForeColor="White" />
                         </asp:DataGrid>
-                        <br />
-                        <p align="center" class="Head"><asp:Label ID="lblErrMsg" runat="server"></asp:Label></p>
         </div>
            
         </div>

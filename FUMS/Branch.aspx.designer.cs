@@ -13,6 +13,15 @@ namespace FloraSoft.Cps.UserMgr {
     public partial class Branch {
         
         /// <summary>
+        /// lblErrMsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrMsg;
+        
+        /// <summary>
         /// ddlZone control.
         /// </summary>
         /// <remarks>
@@ -29,14 +38,5 @@ namespace FloraSoft.Cps.UserMgr {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DataGrid MyDataGrid;
-        
-        /// <summary>
-        /// lblErrMsg control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblErrMsg;
     }
 }
