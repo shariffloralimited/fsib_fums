@@ -84,6 +84,17 @@
                                     </EditItemTemplate>
                                     <FooterStyle CssClass="red" />
                                 </asp:TemplateColumn>
+
+                                <asp:TemplateColumn HeaderText="Status" ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Center" FooterStyle-HorizontalAlign="Right">             
+                                    <ItemTemplate>
+                                        <%#DataBinder.Eval(Container.DataItem, "Approved")%>
+                                    </ItemTemplate>
+                                    <EditItemTemplate>
+                                        <asp:CheckBox ID="ChkApproved" Width="115"     runat="server" Checked='<%#DataBinder.Eval(Container.DataItem,"ApprovedBoolean") %>' ></asp:CheckBox>
+                                    </EditItemTemplate>
+                                    <FooterStyle CssClass="red" />
+                                </asp:TemplateColumn>
+
                                 <asp:TemplateColumn>
                                     <FooterTemplate>
                                         <asp:LinkButton CommandName="Insert" Text="Add" ID="btnAdd" CssClass="btn btn-success" ForeColor="White" runat="server" />

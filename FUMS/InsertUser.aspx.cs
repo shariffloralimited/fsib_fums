@@ -27,6 +27,7 @@ namespace FloraSoft.Cps.UserManager
                 BindBranchList();
                 BindDepartment();
                 BindStatusList();
+                BindSubBranch();
 
                 BindUMRoleList();
                 if (bs.Modules.Contains(",RTGS"))
@@ -65,6 +66,7 @@ namespace FloraSoft.Cps.UserManager
             BranchesDB db = new BranchesDB();
             ddlbranch.DataSource = db.GetBranches();
             ddlbranch.DataBind();
+            ddlbranch.Items.Insert(0, new ListItem("--SELECT--", ""));
         }
         private void BindUMRoleList()
         {
@@ -264,26 +266,43 @@ namespace FloraSoft.Cps.UserManager
             {
                 string EditingUser = Request.Cookies["UserName"].Value;
                 string EditorLoginID = Response.Cookies["LoginID"].Value;
-                int UID = db.InsertUser(ddlbranch.SelectedValue, Convert.ToInt32(ddlDepartment.SelectedValue), Convert.ToInt32(ddlStatus.SelectedValue), txtloginid.Text, txtname.Text, txtEmail.Text, txtcontact.Text, txtpass.Text, chkAllBranch.Checked, Int32.Parse(Context.User.Identity.Name), Request.UserHostAddress);
+                string EditorRole = Request.Cookies["RoleName"].Value;
+                string SubBranchCD = "";
+                SubBranchCD = ddlSubBranch.SelectedValue == "" ? null : ddlSubBranch.SelectedValue;
+                string dbMessage = "";
+                int UID = db.InsertUser(ddlbranch.SelectedValue, Convert.ToInt32(ddlDepartment.SelectedValue), Convert.ToInt32(ddlStatus.SelectedValue), txtloginid.Text, txtname.Text, txtEmail.Text, txtcontact.Text, txtpass.Text, chkAllBranch.Checked, Int32.Parse(Context.User.Identity.Name), Request.UserHostAddress, EditorRole, SubBranchCD, out dbMessage);
 
                 InsertUserRoleOfAUser(UID);
-                txtloginid.Text = "";
-                txtpass.Text = "";
-                txtname.Text = "";
-                txtcontact.Text = "";
-                txtEmail.Text = "";
-                lblMessage.Text = "User Added.";
-                BindUMRoleList();
-                BindRTGSRoleList();
-                BindCPSRoleList();
-                BindEFTNRoleList();
-                lblMessage.CssClass = "alert-success";
+                lblMessage.Text = dbMessage;
+                if (UID > 0)
+                {
+                    ResetForm();
+                    BindUMRoleList();
+                    BindRTGSRoleList();
+                    BindCPSRoleList();
+                    BindEFTNRoleList();
+                    lblMessage.CssClass = "alert-success";
+                }
+                else
+                {
+                    lblMessage.CssClass = "alert-danger";
+                }
             }
             catch(SqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
         }
+
+        private void ResetForm()
+        {
+            txtloginid.Text = "";
+            txtpass.Text = "";
+            txtname.Text = "";
+            txtcontact.Text = "";
+            txtEmail.Text = "";
+        }
+
         private void InsertUserRoleOfAUser(int UserID)
         {
             FloraSoft.BankSettingsDB bsdb = new BankSettingsDB();
@@ -365,6 +384,19 @@ namespace FloraSoft.Cps.UserManager
             }
 
 
+        }
+        private void BindSubBranch()
+        {
+            ddlSubBranch.Items.Clear();
+            SubBranchDB db = new SubBranchDB();
+            ddlSubBranch.DataSource = db.GetSubBranchesByRoutingNo(ddlbranch.SelectedValue.ToString());
+            ddlSubBranch.DataBind();
+            ddlSubBranch.Items.Insert(0, new ListItem("--SELECT--", ""));
+        }
+
+        protected void ddlbranch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindSubBranch();
         }
 
     }

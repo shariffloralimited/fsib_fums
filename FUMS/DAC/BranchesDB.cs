@@ -142,7 +142,7 @@ namespace FloraSoft.Cps.UserManager
             SqlDataReader result = myCommand.ExecuteReader(CommandBehavior.CloseConnection);
             return result;
         }
-        public int InsertBranches(int ZoneID, String BranchName, int BranchCD,int RoutingNo)
+        public int InsertBranches2(int ZoneID, String BranchName, int BranchCD,int RoutingNo)
         {
             UserDB user      = new UserDB();
             string EntryHash = user.Encrypt(RoutingNo.ToString() + "AA");
@@ -224,7 +224,7 @@ namespace FloraSoft.Cps.UserManager
             myConnection.Close();
             return parameterMessage.Value.ToString();
         }
-        public string InsertBranches(String BranchName, string RoutingNo, string BranchNumonic, string BranchCD, int UserID, string IPAddress)
+        public string InsertBranches(String BranchName, string RoutingNo, string BranchNumonic, string BranchCD, string LoginID, string IPAddress, string RoleCD)
         {
             SqlConnection myConnection = new SqlConnection(AppVariables.ConStr);
             SqlCommand myCommand = new SqlCommand("ACH_InsertBranch", myConnection);
@@ -238,6 +238,10 @@ namespace FloraSoft.Cps.UserManager
             parameterBranchName.Value = BranchName;
             myCommand.Parameters.Add(parameterBranchName);
 
+            SqlParameter parameterZoneID = new SqlParameter("@ZoneID", SqlDbType.Int, 4);
+            parameterZoneID.Value = 0;
+            myCommand.Parameters.Add(parameterZoneID);
+
             SqlParameter parameterRoutingNo = new SqlParameter("@RoutingNo", SqlDbType.VarChar, 9);
             parameterRoutingNo.Value = RoutingNo;
             myCommand.Parameters.Add(parameterRoutingNo);
@@ -250,9 +254,13 @@ namespace FloraSoft.Cps.UserManager
             parameterBranchCD.Value = BranchCD;
             myCommand.Parameters.Add(parameterBranchCD);
 
-            SqlParameter parameterEditingUserID = new SqlParameter("@EditingUserID", SqlDbType.Int, 4);
-            parameterEditingUserID.Value = UserID;
-            myCommand.Parameters.Add(parameterEditingUserID);
+            SqlParameter parameterEditingLoginID = new SqlParameter("@LastEditingUser", SqlDbType.VarChar, 50);
+            parameterEditingLoginID.Value = LoginID;
+            myCommand.Parameters.Add(parameterEditingLoginID);
+
+            SqlParameter parameterRoleCD = new SqlParameter("@RoleCD", SqlDbType.VarChar, 4);
+            parameterRoleCD.Value = RoleCD;
+            myCommand.Parameters.Add(parameterRoleCD);
 
             SqlParameter parameterIPAddress = new SqlParameter("@IPAddress", SqlDbType.VarChar, 50);
             parameterIPAddress.Value = IPAddress;

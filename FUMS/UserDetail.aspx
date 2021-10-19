@@ -48,11 +48,14 @@ td.ddl:before {
                     </tr>
                     <tr>
                         <td class="Normal">
-                            &nbsp;</td>
+                            Sub Branch:
+                        </td>
                         <td>
-                            &nbsp;</td>
-                    </tr>
-                   
+                            <asp:DropDownList ID="ddlSubBranch" runat="server" Width="195px" DataTextField="SubBranchName"
+                                DataValueField="SubBranchCD" Enabled="false">
+                            </asp:DropDownList>
+                        </td>
+                    </tr>                   
                     <tr>
                         <td class="Normal">
                             Login ID:

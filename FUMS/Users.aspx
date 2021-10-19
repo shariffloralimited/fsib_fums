@@ -74,6 +74,11 @@
                             <%#DataBinder.Eval(Container.DataItem, "BranchName")%>
                         </ItemTemplate>
                     </asp:TemplateColumn>
+                    <asp:TemplateColumn HeaderText="Sub Branch">
+                        <ItemTemplate>
+                            <%#DataBinder.Eval(Container.DataItem, "SubBranchName")%>
+                        </ItemTemplate>
+                    </asp:TemplateColumn>
                     <asp:TemplateColumn HeaderText="Contact No.">
                         <ItemTemplate>
                             <%#DataBinder.Eval(Container.DataItem, "ContactNo")%>

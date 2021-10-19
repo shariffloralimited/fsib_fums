@@ -123,6 +123,8 @@ namespace FloraSoft.Cps.UserManager
             while (dr.Read())
             {
                 ddlbranch.SelectedValue = dr["RoutingNo"].ToString();
+                BindSubBranchList(ddlbranch.SelectedValue);
+                ddlSubBranch.SelectedValue = dr["SubBranchCD"].ToString();
                 txtloginid.Text = dr["LoginID"].ToString();
                 txtname.Text = dr["UserName"].ToString();
                 ddlDepartment.SelectedValue = dr["DeptID"].ToString();
@@ -138,6 +140,15 @@ namespace FloraSoft.Cps.UserManager
             }
             dr.Close();
             dr.Dispose();
+        }
+
+        private void BindSubBranchList(string routingNo)
+        {
+            ddlSubBranch.Items.Clear();
+            SubBranchDB db = new SubBranchDB();
+            ddlSubBranch.DataSource = db.GetSubBranchesByRoutingNo(routingNo);
+            ddlSubBranch.DataBind();
+            ddlSubBranch.Items.Insert(0, new ListItem("--SELECT--", ""));
         }
 
         private void SetRoles()
@@ -415,7 +426,7 @@ namespace FloraSoft.Cps.UserManager
             UserDB db = new UserDB();
             db.UpdateSingleUser(UserID, 0, ddlbranch.SelectedValue, txtloginid.Text, 
                 txtname.Text, Convert.ToInt32(ddlDepartment.SelectedValue), Convert.ToInt32(ddlStatus.SelectedValue), 
-                ChkAllBranch.Checked, txtEmail.Text, txtcontact.Text,  Int32.Parse(EditingUserID), Request.UserHostAddress);
+                ChkAllBranch.Checked, txtEmail.Text, txtcontact.Text,  Int32.Parse(EditingUserID), Request.UserHostAddress, ddlSubBranch.SelectedValue);
             lblMessage.ForeColor = System.Drawing.Color.Magenta;
             lblMessage.Text = "Updated Successfully";
             //Response.Redirect("Users.aspx");
@@ -556,6 +567,19 @@ namespace FloraSoft.Cps.UserManager
         {
             EFTNRoleList.DataSource = new RoleDB().GetAllRolesByModuleID(4);
             EFTNRoleList.DataBind();
+        }
+
+        protected void ddlBranch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var value = ddlbranch.SelectedValue;
+            if (value != "")
+            {
+                SubBranchDB db = new SubBranchDB();
+                var subBranches = db.GetSubBranchesByRoutingNo(value);
+                ddlSubBranch.Items.Clear();
+                ddlSubBranch.DataSource = subBranches;
+                ddlSubBranch.DataBind();
+            }
         }
     }
 }

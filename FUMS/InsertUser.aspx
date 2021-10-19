@@ -19,9 +19,17 @@
                    
                     <td class="Normal">Branch:</td>
                     <td>
-                        <asp:DropDownList ID="ddlbranch" runat="server" Width="195px" style="height:25px" DataTextField="BranchName" DataValueField="RoutingNo"></asp:DropDownList>
+                        <asp:DropDownList ID="ddlbranch" runat="server" Width="195px" style="height:25px" DataTextField="BranchName" DataValueField="RoutingNo" AutoPostBack="true" OnSelectedIndexChanged="ddlbranch_SelectedIndexChanged"></asp:DropDownList>
                     </td>
-                </tr>                     
+                </tr>     
+                <tr>
+                   
+                    <td class="Normal">Sub Branch:</td>
+                    <td>
+                        <asp:DropDownList ID="ddlSubBranch" runat="server" Width="195px" style="height:25px" DataTextField="SubBranchName" DataValueField="SubBranchCD">
+                        </asp:DropDownList>
+                    </td>
+                </tr>                 
                 <tr>
                    
                     <td class="Normal">Login ID:</td>

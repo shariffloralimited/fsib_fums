@@ -24,6 +24,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -130,6 +131,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="ChangePassword.aspx" />
     <Content Include="Images\bg_2.png" />
+    <Content Include="SubBranch.aspx" />
     <Content Include="UserLogout.aspx" />
     <Content Include="ResetPassword.aspx" />
     <Content Include="Scripts\bootstrap.js" />
@@ -192,6 +194,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAC\BankSettingsDB.cs" />
+    <Compile Include="DAC\SubBranchDB.cs" />
     <Compile Include="LoginLog.aspx.cs">
       <DependentUpon>LoginLog.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -230,6 +233,13 @@
     </Compile>
     <Compile Include="ChangePassword.aspx.designer.cs">
       <DependentUpon>ChangePassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SubBranch.aspx.cs">
+      <DependentUpon>SubBranch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubBranch.aspx.designer.cs">
+      <DependentUpon>SubBranch.aspx</DependentUpon>
     </Compile>
     <Compile Include="UserLogout.aspx.cs">
       <DependentUpon>UserLogout.aspx</DependentUpon>

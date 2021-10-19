@@ -43,32 +43,7 @@ namespace FloraSoft.Cps.UserManager
             return dt;
         }
 
-        public void UpdateTransactionLimit(int LevelID, string LowerLimit, string UpperLimit)
-        {
-            SqlConnection myConnection = new SqlConnection(AppVariables.ConStr);
-            SqlCommand myCommand = new SqlCommand("ACH_UpdateTransactionLimit", myConnection);
-            myCommand.CommandType = CommandType.StoredProcedure;
-
-            SqlParameter parameterLevelID = new SqlParameter("@LevelID", SqlDbType.Int, 4);
-            parameterLevelID.Value = LevelID;
-            myCommand.Parameters.Add(parameterLevelID);
-
-            SqlParameter parameterLowerLimit = new SqlParameter("@LowerLimit", SqlDbType.VarChar, 50);
-            parameterLowerLimit.Value = LowerLimit;
-            myCommand.Parameters.Add(parameterLowerLimit);
-
-            SqlParameter parameterUpperLimit = new SqlParameter("@UpperLimit", SqlDbType.VarChar, 50);
-            parameterUpperLimit.Value = UpperLimit;
-            myCommand.Parameters.Add(parameterUpperLimit);
-
-            myConnection.Open();
-            myCommand.ExecuteNonQuery();
-            myConnection.Close();
-            myConnection.Dispose();
-            myCommand.Dispose();
-        }
-
-        public void InsertTransactionLimit(string LevelName, double TransLimit, string LimitWord)
+        public void InsertTransactionLimit(string LevelName, double TransLimit, string LimitWord, string EditingLoginID, int UserID, string IPAddress)
         {
             SqlConnection myConnection = new SqlConnection(AppVariables.ConStr);
             SqlCommand myCommand = new SqlCommand("ACH_InsertTransLimit", myConnection);
@@ -85,6 +60,22 @@ namespace FloraSoft.Cps.UserManager
             SqlParameter parameterLimitWord = new SqlParameter("@LimitWord", SqlDbType.VarChar, 50);
             parameterLimitWord.Value = LimitWord;
             myCommand.Parameters.Add(parameterLimitWord);
+
+            SqlParameter parameterEditingLoginID = new SqlParameter("@EditingLoginID", SqlDbType.VarChar, 50);
+            parameterEditingLoginID.Value = EditingLoginID;
+            myCommand.Parameters.Add(parameterEditingLoginID);
+
+            SqlParameter parameterUserID = new SqlParameter("@LoginID", SqlDbType.VarChar, 50);
+            parameterUserID.Value = UserID;
+            myCommand.Parameters.Add(parameterUserID);
+
+            SqlParameter parameterIPAddress = new SqlParameter("@IPAddress", SqlDbType.VarChar, 50);
+            parameterIPAddress.Value = IPAddress;
+            myCommand.Parameters.Add(parameterIPAddress);
+
+            SqlParameter parameterMsg = new SqlParameter("@Msg", SqlDbType.VarChar, 100);
+            parameterMsg.Direction = ParameterDirection.Output;
+            myCommand.Parameters.Add(parameterMsg);
 
             myConnection.Open();
             myCommand.ExecuteNonQuery();
@@ -110,7 +101,7 @@ namespace FloraSoft.Cps.UserManager
             myCommand.Dispose();
         }
 
-        internal void UpdateTransactionLimit(int LevelID, string LevelName, decimal TransLimit, string LimitWord)
+        public void UpdateTransactionLimit(int LevelID, string LevelName, decimal TransLimit, string LimitWord, bool Approved, string RoleCD, string EditingLoginID, int UserID, string IPAddress)
         {
             SqlConnection myConnection = new SqlConnection(AppVariables.ConStr);
             SqlCommand myCommand = new SqlCommand("ACH_UpdateTransLimit", myConnection);
@@ -129,6 +120,30 @@ namespace FloraSoft.Cps.UserManager
             SqlParameter parameterLimitWord = new SqlParameter("@LimitWord", SqlDbType.VarChar, 50);
             parameterLimitWord.Value = LimitWord;
             myCommand.Parameters.Add(parameterLimitWord);
+
+            SqlParameter parameterApproved = new SqlParameter("@Approved", SqlDbType.Bit);
+            parameterApproved.Value = Approved;
+            myCommand.Parameters.Add(parameterApproved);
+
+            SqlParameter parameterRoleCD = new SqlParameter("@RoleCD", SqlDbType.VarChar, 4);
+            parameterRoleCD.Value = RoleCD;
+            myCommand.Parameters.Add(parameterRoleCD);
+
+            SqlParameter parameterEditingLoginID = new SqlParameter("@EditingLoginID", SqlDbType.VarChar, 50);
+            parameterEditingLoginID.Value = EditingLoginID;
+            myCommand.Parameters.Add(parameterEditingLoginID);
+
+            SqlParameter parameterLoginID = new SqlParameter("@LoginID", SqlDbType.Int);
+            parameterLoginID.Value = UserID;
+            myCommand.Parameters.Add(parameterLoginID);
+
+            SqlParameter parameterIPAddress = new SqlParameter("@IPAddress", SqlDbType.VarChar, 50);
+            parameterIPAddress.Value = IPAddress;
+            myCommand.Parameters.Add(parameterIPAddress);
+
+            SqlParameter parameterMsg = new SqlParameter("@Msg", SqlDbType.VarChar, 100);
+            parameterMsg.Direction = ParameterDirection.Output;
+            myCommand.Parameters.Add(parameterMsg);
 
             myConnection.Open();
             myCommand.ExecuteNonQuery();

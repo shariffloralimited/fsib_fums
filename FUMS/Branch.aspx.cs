@@ -29,13 +29,13 @@ namespace FloraSoft.Cps.UserMgr
         {
             if (!Page.IsPostBack)
             {
-              
+                BindData();
                 BindZone();
             }
         }
         protected void Page_PreRender(object sender,EventArgs e)
         {
-            BindData();
+            // BindData();
         }
         private void BindZone()
         {
@@ -120,7 +120,7 @@ namespace FloraSoft.Cps.UserMgr
                     return;
                 }
 
-                string result = db.InsertBranches(txtBranchName.Text, txtRoutingNo.Text, txtBranchNumonic.Text, txtBranchCD.Text, Int32.Parse(Request.Cookies["UserID"].Value), Request.UserHostAddress);
+                string result = db.InsertBranches(txtBranchName.Text, txtRoutingNo.Text, txtBranchNumonic.Text, txtBranchCD.Text, Request.Cookies["LoginID"].Value, Request.UserHostAddress, Request.Cookies["RoleCD"].Value);
                 if (result.IndexOf('s')!=-1)
                 {
                     lblErrMsg.Text = "Added successfully";

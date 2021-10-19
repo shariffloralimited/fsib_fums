@@ -740,7 +740,7 @@ namespace FloraSoft.Cps.UserManager
         }
         public int InsertUser(String RoutingNo, int DeptID, int StatusID, String LoginID,
             String UserName, String Email, String ContactNo, string Password, bool allBranch,
-            int EnteredBy, string EditorsIP)
+            int EnteredBy, string EditorsIP, string EditorRole, string subBranchCD, out string dbMessage)
         {
             SqlConnection myConnection = new SqlConnection(AppVariables.ConStr);
             SqlCommand myCommand = new SqlCommand("ACH_InsertSingleUser", myConnection);
@@ -786,12 +786,12 @@ namespace FloraSoft.Cps.UserManager
             //parameterEnteredBy.Value = EnteredBy;
             //myCommand.Parameters.Add(parameterEnteredBy);
 
-            SqlParameter parameterEnteredBy = new SqlParameter("@EditingUserID", SqlDbType.Int, 4);
+            SqlParameter parameterEnteredBy = new SqlParameter("@EditingUserID", SqlDbType.Int);
             parameterEnteredBy.Value = EnteredBy;
             myCommand.Parameters.Add(parameterEnteredBy);
 
-            SqlParameter parameterEditorsRole = new SqlParameter("@EditorsRole", SqlDbType.Int, 4);
-            parameterEditorsRole.Value = EnteredBy;
+            SqlParameter parameterEditorsRole = new SqlParameter("@EditorsRole", SqlDbType.VarChar, 50);
+            parameterEditorsRole.Value = EditorRole;
             myCommand.Parameters.Add(parameterEditorsRole);
 
 
@@ -800,17 +800,26 @@ namespace FloraSoft.Cps.UserManager
             parameterEditorsIP.Value = EditorsIP;
             myCommand.Parameters.Add(parameterEditorsIP);
 
-            SqlParameter parameterUserID = new SqlParameter("@UserID", SqlDbType.Int, 4);
+            SqlParameter parameterUserID = new SqlParameter("@UserID", SqlDbType.Int);
             parameterUserID.Direction = ParameterDirection.Output;
             myCommand.Parameters.Add(parameterUserID);
 
+            SqlParameter parameterSubBranchD = new SqlParameter("@SubBranchCD", SqlDbType.VarChar, 4);
+            parameterSubBranchD.Value = (object)subBranchCD ?? DBNull.Value;
+            myCommand.Parameters.Add(parameterSubBranchD);
+
+            SqlParameter parameterUserInsertMessage = new SqlParameter("@UserInsertMessage", SqlDbType.VarChar, 200);
+            parameterUserInsertMessage.Direction = ParameterDirection.Output;
+            myCommand.Parameters.Add(parameterUserInsertMessage);
+
             myConnection.Open();
             myCommand.ExecuteNonQuery();
+            dbMessage = parameterUserInsertMessage.Value.ToString();
             myConnection.Close();
             return (int)parameterUserID.Value;
         }
         public void UpdateSingleUser(int UserID, int ZoneID, string RoutingNo, String LoginID, String UserName, int DeptID, int StatusID, bool AllBranch, String Email,
-            String ContactNo, int EditingUserID,   string IPAddress)
+            String ContactNo, int EditingUserID,   string IPAddress, string subBranchCD)
         {
             SqlConnection myConnection = new SqlConnection(AppVariables.ConStr);
             SqlCommand myCommand = new SqlCommand("ACH_UpdateSingleUser", myConnection);
@@ -878,6 +887,10 @@ namespace FloraSoft.Cps.UserManager
             SqlParameter parameterIPAddress = new SqlParameter("@EditorsIP", SqlDbType.NVarChar, 50);
             parameterIPAddress.Value = IPAddress;
             myCommand.Parameters.Add(parameterIPAddress);
+
+            SqlParameter parameterSubBranchD = new SqlParameter("@SubBranchCD", SqlDbType.VarChar, 4);
+            parameterSubBranchD.Value = (object)subBranchCD ?? DBNull.Value;
+            myCommand.Parameters.Add(parameterSubBranchD);
 
             myConnection.Open();
             myCommand.ExecuteNonQuery();

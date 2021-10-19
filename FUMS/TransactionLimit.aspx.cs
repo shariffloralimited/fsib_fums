@@ -55,12 +55,12 @@ namespace FloraSoft.Cps.UserManager
                 try
                 {
                     double limit = Convert.ToDouble(txtTransLimit.Text);
-                    db.InsertTransactionLimit(txtLevelName.Text, limit, txtLimitWord.Text);
+                    db.InsertTransactionLimit(txtLevelName.Text, limit, txtLimitWord.Text, Request.Cookies["LoginID"].Value, int.Parse(Request.Cookies["UserID"].Value), Request.UserHostAddress);
                     lblErrMsg.Text = "Added successfully";
                     lblErrMsg.ForeColor = System.Drawing.Color.Blue;
                     BindTransactionLimit();
                 }
-                catch 
+                catch(Exception ex)
                 {
                     lblErrMsg.Text = "Incorrect transacton limit";
                     lblErrMsg.ForeColor = System.Drawing.Color.Red;
@@ -73,6 +73,7 @@ namespace FloraSoft.Cps.UserManager
                 TextBox txtLevelName = (TextBox)e.Item.FindControl("LevelName");
                 TextBox txtTransLimit = (TextBox)e.Item.FindControl("TransLimit");
                 TextBox txtLimitWord = (TextBox)e.Item.FindControl("LimitWord");
+                CheckBox ChkApproved = (CheckBox)e.Item.FindControl("ChkApproved");
 
                 decimal translimit = 0;
                 try
@@ -84,7 +85,7 @@ namespace FloraSoft.Cps.UserManager
                 }
                 if (translimit != 0)
                 {
-                    db.UpdateTransactionLimit(LevelID, txtLevelName.Text, translimit, txtLimitWord.Text);
+                    db.UpdateTransactionLimit(LevelID, txtLevelName.Text, translimit, txtLimitWord.Text, ChkApproved.Checked, Request.Cookies["RoleCD"].Value, Request.Cookies["LoginID"].Value, int.Parse(Request.Cookies["UserID"].Value), Request.UserHostAddress);
 
                     MyDataGrid.EditItemIndex = -1;
                     //lblErrMsg.Text = "Updated successfully";

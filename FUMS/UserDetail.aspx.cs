@@ -76,6 +76,8 @@ namespace FloraSoft.Cps.UserManager
                 txtcontact.Text = dr["ContactNo"].ToString();
                 string BranchId = dr["BranchID"].ToString();
                 ddlbranch.SelectedValue = BranchId;
+                BindSubBranchList(dr["RoutingNo"].ToString());
+                ddlSubBranch.SelectedValue = dr["SubBranchCD"].ToString();
                 chkAllBranch.Checked = (bool)dr["AllBranch"];
             }
             dr.Close();
@@ -175,6 +177,14 @@ namespace FloraSoft.Cps.UserManager
             ddlbranch.DataSource = db1.GetBranches();
             ddlbranch.DataBind();
         }
+        private void BindSubBranchList(string routingNo)
+        {
+            SubBranchDB db = new SubBranchDB();
+            ddlSubBranch.DataSource = db.GetSubBranchesByRoutingNo(routingNo);
+            ddlSubBranch.DataBind();
+            ddlSubBranch.Items.Insert(0, new ListItem("", ""));
+        }
+
         private void BindRTGSRoleList()
         {
             RTGSRoleList.DataSource = new RoleDB().GetAllRolesByModuleID(2);

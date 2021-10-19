@@ -59,6 +59,7 @@
                     <li><a href="Users.aspx">Manage Users</a></li>
                     <li><a href="InsertUser.aspx">Add User</a></li>
                     <li><a href="Branch.aspx">Branches</a></li>
+                    <li><a href="SubBranch.aspx">Sub Branches</a></li>
                  <%--   <li style="visibility:hidden"><a href="TransactionLimit.aspx">Trans Limit</a></li>--%>
                     <li ><a href="StatuswiseUsers.aspx">Status Report</a></li>
                     <li><a href="RolewiseUsers.aspx">Role Report</a></li>

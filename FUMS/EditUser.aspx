@@ -20,8 +20,18 @@
                             Branch:
                         </td>
                         <td>
-                            <asp:DropDownList ID="ddlbranch" runat="server" Width="195px" DataTextField="BranchName"
+                            <asp:DropDownList ID="ddlbranch" runat="server" Width="195px" DataTextField="BranchName" OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged" AutoPostBack="true"
                                 CssClass="Normal" DataValueField="RoutingNo">
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="Normal">
+                            Sub Branch:
+                        </td>
+                        <td>
+                            <asp:DropDownList ID="ddlSubBranch" runat="server" Width="195px" DataTextField="SubBranchName" CssClass="Normal" DataValueField="SubBranchCD">
+                                <asp:ListItem Text="--SELECT--" Value="" />
                             </asp:DropDownList>
                         </td>
                     </tr>
@@ -30,7 +40,7 @@
                             Login ID:
                         </td>
                         <td>
-                            <asp:TextBox ID="txtloginid" CssClass="inputlt"  MaxLength="20" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtloginid" CssClass="inputlt"  MaxLength="20" runat="server" ReadOnly="true"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="LoginIdFieldvalidator" runat="server" 
                                 ControlToValidate="txtloginid" Display="Dynamic"
                                 ErrorMessage="*"></asp:RequiredFieldValidator>
