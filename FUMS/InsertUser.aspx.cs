@@ -301,6 +301,13 @@ namespace FloraSoft.Cps.UserManager
             txtname.Text = "";
             txtcontact.Text = "";
             txtEmail.Text = "";
+            ddlbranch.SelectedIndex = -1;
+            ddlSubBranch.SelectedIndex = -1;
+            ddlDepartment.SelectedIndex = -1;
+            //ddlStatus.DataSource = null;
+            //UMRoleList.DataSource = null;
+            //CPSRoleList.DataSource = null;
+            chkAllBranch.Checked = false;
         }
 
         private void InsertUserRoleOfAUser(int UserID)

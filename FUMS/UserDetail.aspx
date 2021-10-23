@@ -114,29 +114,29 @@ td.ddl:before {
             </div>
             <div class="col-md-7">
             <fieldset><legend>User Module</legend>
-                 <asp:CheckBoxList ID="UMRoleList" runat="server" CellPadding="5" DataTextField="RoleName" RepeatDirection="Horizontal" RepeatColumns="4" CssClass="Normal" DataValueField="RoleID"></asp:CheckBoxList>
+                 <asp:CheckBoxList ID="UMRoleList" runat="server" CellPadding="5" DataTextField="RoleName" RepeatDirection="Horizontal" RepeatColumns="4" CssClass="Normal" DataValueField="RoleID" Enabled="false"></asp:CheckBoxList>
             </fieldset>
             <br />
             <asp:Panel ID="RTGSPanel" Visible="false" runat="server">
             <fieldset><legend>RTGS</legend>
-                  <asp:CheckBoxList ID="RTGSRoleList" runat="server" CellPadding="5" DataTextField="RoleName" RepeatDirection="Horizontal" RepeatColumns="4" CssClass="Normal" DataValueField="RoleID"></asp:CheckBoxList>
+                  <asp:CheckBoxList ID="RTGSRoleList" runat="server" CellPadding="5" DataTextField="RoleName" RepeatDirection="Horizontal" RepeatColumns="4" CssClass="Normal" DataValueField="RoleID" Enabled="false"></asp:CheckBoxList>
             </fieldset>
             </asp:Panel>
             <br />
             <asp:Panel ID="CPSPanel" Visible="false" runat="server">
             <fieldset><legend>CPS</legend>
-                  <asp:CheckBoxList ID="CPSRoleList" runat="server" CellPadding="5" DataTextField="RoleName" RepeatDirection="Horizontal" RepeatColumns="4" CssClass="Normal" DataValueField="RoleID"></asp:CheckBoxList>
+                  <asp:CheckBoxList ID="CPSRoleList" runat="server" CellPadding="5" DataTextField="RoleName" RepeatDirection="Horizontal" RepeatColumns="4" CssClass="Normal" DataValueField="RoleID" Enabled="false"></asp:CheckBoxList>
             </fieldset>
             </asp:Panel>
             <br />
             <asp:Panel ID="EFTNPanel" Visible="false" runat="server">
             <fieldset><legend>EFTN</legend>
-                  <asp:CheckBoxList ID="EFTNRoleList" runat="server" CellPadding="5" DataTextField="RoleName" RepeatDirection="Horizontal" RepeatColumns="4" CssClass="Normal" DataValueField="RoleID"></asp:CheckBoxList>
+                  <asp:CheckBoxList ID="EFTNRoleList" runat="server" CellPadding="5" DataTextField="RoleName" RepeatDirection="Horizontal" RepeatColumns="4" CssClass="Normal" DataValueField="RoleID" Enabled="false"></asp:CheckBoxList>
             </fieldset>
             </asp:Panel>
-                     <asp:Panel ID="ZonePanel" Visible="true" runat="server">
+                     <asp:Panel ID="ZonePanel" Visible="false" runat="server">
             <fieldset><legend>Zone</legend>
-                  <asp:CheckBoxList ID="ZoneList" runat="server" CellPadding="5" DataTextField="ZoneName" RepeatDirection="Horizontal" RepeatColumns="4" CssClass="Normal" DataValueField="ZoneID"></asp:CheckBoxList>
+                  <asp:CheckBoxList ID="ZoneList" runat="server" CellPadding="5" DataTextField="ZoneName" RepeatDirection="Horizontal" RepeatColumns="4" CssClass="Normal" DataValueField="ZoneID" Enabled="false"></asp:CheckBoxList>
             </fieldset>
             </asp:Panel>
             <br />

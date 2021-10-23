@@ -20,6 +20,8 @@
                     <td class="Normal">Branch:</td>
                     <td>
                         <asp:DropDownList ID="ddlbranch" runat="server" Width="195px" style="height:25px" DataTextField="BranchName" DataValueField="RoutingNo" AutoPostBack="true" OnSelectedIndexChanged="ddlbranch_SelectedIndexChanged"></asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="ddlbranchRequiredFieldValidator" runat="server" Display="Dynamic" 
+                            ControlToValidate="ddlbranch" ErrorMessage="*"></asp:RequiredFieldValidator>
                     </td>
                 </tr>     
                 <tr>
