@@ -469,7 +469,7 @@ namespace FloraSoft.Cps.UserManager
             myConnection.Dispose();
             myCommand.Dispose();
         }
-        public void DisapproveUser(int UserID, int EnteredBy, string IPAddress)
+        public void DisapproveUser(int UserID, int EnteredBy, string IPAddress, string EditorRole)
         {
 
             SqlConnection myConnection = new SqlConnection(AppVariables.ConStr);
@@ -480,13 +480,17 @@ namespace FloraSoft.Cps.UserManager
             parameterUserID.Value = UserID;
             myCommand.Parameters.Add(parameterUserID);
 
-            SqlParameter parameterEnteredBy = new SqlParameter("@EnteredBy", SqlDbType.Int, 4);
+            SqlParameter parameterEnteredBy = new SqlParameter("@EditingUserID", SqlDbType.Int, 4);
             parameterEnteredBy.Value = EnteredBy;
             myCommand.Parameters.Add(parameterEnteredBy);
 
-            SqlParameter parameterIPAddress = new SqlParameter("@IPAddress", SqlDbType.NVarChar, 40);
+            SqlParameter parameterIPAddress = new SqlParameter("@EditorsIP", SqlDbType.NVarChar, 40);
             parameterIPAddress.Value = IPAddress;
             myCommand.Parameters.Add(parameterIPAddress);
+
+            SqlParameter parameterEditorsRole = new SqlParameter("@EditorsRole", SqlDbType.VarChar, 50);
+            parameterEditorsRole.Value = EditorRole;
+            myCommand.Parameters.Add(parameterEditorsRole);
 
             myConnection.Open();
             myCommand.ExecuteNonQuery();

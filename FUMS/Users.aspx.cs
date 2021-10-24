@@ -178,7 +178,7 @@ namespace FloraSoft.Cps.UserManager
                 if (((CheckBox)(MyDataGrid2.Items[i].FindControl("chkActive"))).Checked)
                 {
                     int userId = Convert.ToInt32(((Label)(MyDataGrid2.Items[i].FindControl("LabelUserID"))).Text);
-                    db.DisapproveUser(userId, Convert.ToInt32(Context.User.Identity.Name), Request.UserHostAddress);
+                    db.DisapproveUser(userId, Convert.ToInt32(Context.User.Identity.Name), Request.UserHostAddress, Request.Cookies["RoleName"].Value);
                 }
             }
             BindData();
