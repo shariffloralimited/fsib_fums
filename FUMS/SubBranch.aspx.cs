@@ -38,6 +38,14 @@ namespace FloraSoft.Cps.UserMgr
             SubBranchDB db = new SubBranchDB();
             MyDataGrid.DataSource = db.GetAllSubBranches();
             MyDataGrid.DataBind();
+            if (Request.Cookies["RoleID"].Value != "99")
+            {
+                MyDataGrid.ShowFooter = false;
+                //for(int i = 0; i < MyDataGrid.Items.Count; i++)
+                //{
+                //    MyDataGrid.Items[i].Cells[0].Text = "";
+                //}
+            }
         }
 
         protected void MyDataGrid_ItemCommand(object source, DataGridCommandEventArgs e)
@@ -54,9 +62,9 @@ namespace FloraSoft.Cps.UserMgr
                 BindData();
                 if (Request.Cookies["RoleID"].Value != "99")
                 {
-                    MyDataGrid.Items[MyDataGrid.EditItemIndex].Cells[1].Enabled = false;
-                    MyDataGrid.Items[MyDataGrid.EditItemIndex].Cells[2].Enabled = false;
-                    MyDataGrid.Items[MyDataGrid.EditItemIndex].Cells[3].Enabled = false;
+                    //MyDataGrid.Items[MyDataGrid.EditItemIndex].Cells[1].Enabled = false;
+                    //MyDataGrid.Items[MyDataGrid.EditItemIndex].Cells[2].Enabled = false;
+                    //MyDataGrid.Items[MyDataGrid.EditItemIndex].Cells[3].Enabled = false;
                 }
             }
             if (e.CommandName == "Insert")
@@ -122,11 +130,14 @@ namespace FloraSoft.Cps.UserMgr
                 string dbMessage = string.Empty;
                 db.UpdateSubBranch(subBranchID, txtSubBranchName.Text, txtBranchCD.Text, ddlRoutingNo.Text, RoleCD, out dbMessage);
 
-                MyDataGrid.EditItemIndex = -1;
                 lblErrMsg.Text = dbMessage;
-                lblErrMsg.ForeColor = System.Drawing.Color.Blue;
-
-                BindData();
+                lblErrMsg.ForeColor = System.Drawing.Color.Red;
+                if (dbMessage.ToLower().Contains("success"))
+                {
+                    MyDataGrid.EditItemIndex = -1;
+                    lblErrMsg.ForeColor = System.Drawing.Color.Blue;
+                    BindData();
+                }
             }
             if (e.CommandName == "Delete")
             {
