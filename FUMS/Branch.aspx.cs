@@ -177,7 +177,7 @@ namespace FloraSoft.Cps.UserMgr
                     return;
                 }
 
-                string msg=db.UpdateBranch(BranchID, txtBranchName.Text, txtRoutingNo.Text, txtBranchNumonic.Text, txtBranchCD.Text, ChkApproved.Checked, Request.Cookies["RoleCD"].Value);
+                string msg=db.UpdateBranch(BranchID, txtBranchName.Text, txtRoutingNo.Text, txtBranchNumonic.Text, txtBranchCD.Text, ChkApproved.Checked, Request.Cookies["RoleCD"].Value, Request.Cookies["LoginID"].Value, Request.UserHostAddress);
 
                 MyDataGrid.EditItemIndex = -1;
                 //lblErrMsg.Text = "Updated successfully";

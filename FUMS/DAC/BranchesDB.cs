@@ -181,9 +181,22 @@ namespace FloraSoft.Cps.UserManager
             return (int)parameterBranchID.Value;
         }
 
-        public string UpdateBranch(int BranchID, String BranchName, string RoutingNo, string BranchNumonic, string BranchCD, bool Approved, string RoleCD)
+        public string UpdateBranch(int BranchID, String BranchName, string RoutingNo, string BranchNumonic, string BranchCD, bool Approved, string RoleCD, string LastEditingUser, string IPAddress)
         {
-
+            /*
+            @BranchID int,  
+	@BranchName varchar(50),  
+	--@ZoneID int,
+	@RoutingNo varchar(9),
+	@BranchNumonic varchar(4), 
+	@BranchCD varchar(4),
+	@Approved bit,
+	@RoleCD	varchar(4),
+	--@LastEditingUser varchar(50),
+	--@IPAddress		varchar(50),
+	--@LoginId		int,
+	@Msg		varchar(50) OUTPUT
+    */
             SqlConnection myConnection = new SqlConnection(AppVariables.ConStr);
             SqlCommand myCommand = new SqlCommand("ACH_UpdateBranch", myConnection);
             myCommand.CommandType = CommandType.StoredProcedure;
@@ -215,6 +228,14 @@ namespace FloraSoft.Cps.UserManager
             SqlParameter parameterRoleCD = new SqlParameter("@RoleCD", SqlDbType.VarChar, 4);
             parameterRoleCD.Value = RoleCD;
             myCommand.Parameters.Add(parameterRoleCD);
+
+            SqlParameter parameterLastEditingUser = new SqlParameter("@LastEditingUser", SqlDbType.VarChar);
+            parameterLastEditingUser.Value = LastEditingUser;
+            myCommand.Parameters.Add(parameterLastEditingUser);
+
+            SqlParameter parameterIPAddress = new SqlParameter("@IPAddress", SqlDbType.VarChar);
+            parameterIPAddress.Value = IPAddress;
+            myCommand.Parameters.Add(parameterIPAddress);
             SqlParameter parameterMessage = new SqlParameter("@Msg", SqlDbType.VarChar, 50);
             parameterMessage.Direction = ParameterDirection.Output;
             myCommand.Parameters.Add(parameterMessage);
@@ -265,7 +286,6 @@ namespace FloraSoft.Cps.UserManager
             SqlParameter parameterIPAddress = new SqlParameter("@IPAddress", SqlDbType.VarChar, 50);
             parameterIPAddress.Value = IPAddress;
             myCommand.Parameters.Add(parameterIPAddress);
-
 
             SqlParameter parameterMsg = new SqlParameter("@Msg", SqlDbType.VarChar, 50);
             parameterMsg.Direction = ParameterDirection.Output;
